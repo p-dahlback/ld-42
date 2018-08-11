@@ -59,7 +59,6 @@ public abstract class PlatformingActorController : ActorController {
         {
             return;
         }
-        Debug.Log("Ground");
         Ground();
     }
 

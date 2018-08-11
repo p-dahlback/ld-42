@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : PlatformingActorController {
 
+    public MouseAimController mouseAim;
+    public 
+
     // Use this for initialization
     void Start () {
 		
