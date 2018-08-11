@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class PlatformingActorController : ActorController {
 
-    public static class AnimatorStates
+    public static class AnimatorStates 
     {
         public static readonly string CanJump = "CanJump";
         public static readonly string IsJumping = "IsJumping";
@@ -12,9 +12,6 @@ public abstract class PlatformingActorController : ActorController {
     }
 
     protected abstract void Jump();
-
-    public Rigidbody2D body;
-    public Animator animator;
 
     public float maxHorizontalSpeed = 10f;
     public float maxVerticalSpeed = 10f;
@@ -29,6 +26,7 @@ public abstract class PlatformingActorController : ActorController {
 
     protected override void Update()
     {
+        base.Update();
         Move();
         Jump();
         Act();

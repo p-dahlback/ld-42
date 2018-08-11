@@ -231,6 +231,6 @@ MonoBehaviour:
     type: 2}
   maxAmmo: 100
   ammo: 100
-  maxBulletsAtATime: 1
+  maxBulletsAtATime: 3
   infiniteAmmo: 1
-  cooldown: 2
+  cooldown: 1

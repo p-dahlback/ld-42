@@ -37,7 +37,7 @@ public class Hitscan : MonoBehaviour {
             {
                 continue;
             }
-            var actor = hit.transform.GetComponent<ActorController>();
+            var actor = hit.collider.transform.GetComponent<ActorController>();
             if (actor != null)
             {
                 actor.Damage(damage);

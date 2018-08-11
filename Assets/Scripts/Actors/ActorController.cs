@@ -4,14 +4,34 @@ using UnityEngine;
 
 public abstract class ActorController : MonoBehaviour {
 
+    public static class AnimatorStates
+    {
+        public static readonly string Heading = "Heading";
+    }
+
     protected abstract void Move();
     protected abstract void Act();
 
     public Entity entity;
+    public Rigidbody2D body;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
     // Use this for initialization
     void Start () {
         entity = GetComponent<Entity>();
+        if (body == null)
+        {
+            body = GetComponent<Rigidbody2D>();
+        }
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
 	}
 	
 	// Update is called once per frame
@@ -19,14 +39,53 @@ public abstract class ActorController : MonoBehaviour {
         CheckIsAlive();
 	}
 
+    private void LateUpdate()
+    {
+        UpdateHeading();
+    }
+
     public void Damage(float value)
     {
         entity.health = entity.health - value;
+        if (entity.health <= 0)
+        {
+            if (entity is Enemy)
+            {
+                var enemy = (Enemy)entity;
+                BurnController.GetInstance().AddToRadius(enemy.radiusIncrease);
+            }
+        }
+    }
+
+    protected void UpdateHeading()
+    {
+        if (body.velocity.x < 0)
+        {
+            if (animator != null)
+            {
+                animator.SetInteger(AnimatorStates.Heading, -1);
+            }
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.flipX = true;
+            }
+        }
+        else if (body.velocity.x > 0)
+        {
+            if (animator != null)
+            {
+                animator.SetInteger(AnimatorStates.Heading, 1);
+            }
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
     }
 
     protected void CheckIsAlive()
     {
-        if (entity.health < 0)
+        if (entity.health <= 0)
         {
             OnDeath();
         }

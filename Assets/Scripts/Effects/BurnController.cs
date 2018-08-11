@@ -51,6 +51,7 @@ public class BurnController : MonoBehaviour {
 
     public void AddToRadius(float value)
     {
+        startRadius = burningZone.radius;
         targetRadius = burningZone.radius + value;
     }
 
