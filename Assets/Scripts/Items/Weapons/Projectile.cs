@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour {
     public float lifeTime = 3f;
     public bool disappearOnImpact = true;
 
-    private Rigidbody2D body;
+    protected Rigidbody2D body;
     private float time = 0.0f;
     private Vector3 oldVelocity;
 
@@ -18,25 +18,30 @@ public class Projectile : MonoBehaviour {
         body = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         time = 0f;
     }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         body.velocity = transform.rotation * (Vector2.right * speed);
         time = 0f;
     }
 
     // Update is called once per frame
-    void Update () {
+    protected virtual void Update () {
         time += Time.deltaTime;
         if (time >= lifeTime)
         {
             gameObject.SetActive(false);
         }
 	}
+
+    private void FixedUpdate()
+    {
+        oldVelocity = body.velocity;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
