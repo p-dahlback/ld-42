@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerController : PlatformingActorController {
 
-    public MouseAimController mouseAim;
-    public 
+    public bool hasJetPack = false;
+    public float jetpackThrust = 10f;
+
+    private bool hadJetPack = false;
 
     // Use this for initialization
     void Start () {
@@ -31,13 +33,36 @@ public class PlayerController : PlatformingActorController {
 
     protected override void Jump()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (hasJetPack)
         {
-            Jump(0, jumpForce);
+            Fly();
+            hadJetPack = true;
         }
-        if (Input.GetButtonUp("Jump"))
+        else
         {
-            CapJump();
+            if (hadJetPack && !animator.GetBool(AnimatorStates.IsGrounded))
+            {
+                animator.SetBool(AnimatorStates.CanJump, false);
+            }
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jump(0, jumpForce);
+            }
+            if (Input.GetButtonUp("Jump"))
+            {
+                CapJump();
+            }
+        }
+    }
+
+    protected void Fly()
+    {
+        animator.SetBool(AnimatorStates.CanJump, true);
+        var thrust = Input.GetButton("Jump");
+        if (thrust)
+        {
+            Jump(0, jetpackThrust);
         }
     }
 }
