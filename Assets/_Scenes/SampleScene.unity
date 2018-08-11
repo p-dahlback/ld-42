@@ -182,7 +182,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1078927337508776, guid: 39475590240713b4b92e3cd00d719692, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39475590240713b4b92e3cd00d719692, type: 2}
@@ -334,11 +334,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4584630758498436, guid: ed0783f678d373048bc5a483359b5d11, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -14.3
       objectReference: {fileID: 0}
     - target: {fileID: 4584630758498436, guid: ed0783f678d373048bc5a483359b5d11, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 8.08
       objectReference: {fileID: 0}
     - target: {fileID: 4584630758498436, guid: ed0783f678d373048bc5a483359b5d11, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1710,7 +1710,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1091565759490928, guid: 96e0f0eb4e543c2459d4f9dd21a65c01, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 96e0f0eb4e543c2459d4f9dd21a65c01, type: 2}
@@ -1890,7 +1890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   burningZone: {fileID: 2024555725}
-  decreasePerSecond: 0.2
+  decreasePerSecond: 0.5
   minimumRadius: 0
 --- !u!4 &1957140667
 Transform:

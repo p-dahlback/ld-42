@@ -51,8 +51,9 @@ public class BurnController : MonoBehaviour {
 
     public void AddToRadius(float value)
     {
+        burningZone.radius += value;
         startRadius = burningZone.radius;
-        targetRadius = burningZone.radius + value;
+        targetRadius = startRadius - decreasePerSecond;
     }
 
     public bool IsOutsideZone(Vector2 point)

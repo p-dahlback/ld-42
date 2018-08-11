@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-    
+
+    public Transform hitPrefab;
     public float speed = 20f;
     public float damage = 1f;
     public float lifeTime = 3f;
@@ -38,6 +39,14 @@ public class Projectile : MonoBehaviour {
         }
 	}
 
+    protected virtual void OnHit()
+    {
+        if (hitPrefab != null)
+        {
+            Instantiate(hitPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
     private void FixedUpdate()
     {
         oldVelocity = body.velocity;
@@ -61,6 +70,7 @@ public class Projectile : MonoBehaviour {
             body.velocity = oldVelocity;
             StartCoroutine("ReactivateCollision", collision);
         }
+        OnHit();
     }
 
     private IEnumerator ReactivateCollision(Collision2D collision)
