@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 495870948}
   - component: {fileID: 495870953}
   - component: {fileID: 495870952}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (1)
   m_TagString: Geometry
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 1083726345}
   - component: {fileID: 1083726344}
   - component: {fileID: 1083726343}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (4)
   m_TagString: Geometry
   m_Icon: {fileID: 0}
@@ -1071,7 +1071,7 @@ GameObject:
   - component: {fileID: 1303281403}
   - component: {fileID: 1303281402}
   - component: {fileID: 1303281401}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (2)
   m_TagString: Geometry
   m_Icon: {fileID: 0}
@@ -1214,7 +1214,7 @@ GameObject:
   - component: {fileID: 1407140448}
   - component: {fileID: 1407140453}
   - component: {fileID: 1407140455}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1233,9 +1233,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
@@ -1324,11 +1324,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 1407140448}
   animator: {fileID: 1407140454}
-  maxHorizontalSpeed: 6
+  maxHorizontalSpeed: 8
   maxVerticalSpeed: 500
-  cappedJumpSpeed: 2
+  cappedJumpSpeed: 0.5
+  cappedMovementSpeed: 0
   speed: 80
-  jumpForce: 10
+  jumpForce: 14
+  actorHeight: 1
 --- !u!95 &1407140454
 Animator:
   serializedVersion: 3
@@ -1359,7 +1361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1407140454}
-  frames: 4
+  frames: 10
 --- !u!1 &1579496968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1489,7 @@ GameObject:
   - component: {fileID: 1827461243}
   - component: {fileID: 1827461242}
   - component: {fileID: 1827461241}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (3)
   m_TagString: Geometry
   m_Icon: {fileID: 0}
@@ -1689,8 +1691,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 10
-  width: 20
-  height: 20
+  width: 30
+  height: 30
   circlePoints: 20
 --- !u!33 &2024555722
 MeshFilter:
@@ -1759,8 +1761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe057d722c18ca449717c895e8376e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRadius: 12
-  radius: 12
+  maxRadius: 16
+  radius: 16
   maxParticleSize: 1.3
   minParticleSize: 0.4
   particleSystemOffset: 0.15

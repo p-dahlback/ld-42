@@ -19,9 +19,11 @@ public abstract class PlatformingActorController : ActorController {
     public float maxHorizontalSpeed = 10f;
     public float maxVerticalSpeed = 10f;
     public float cappedJumpSpeed = 1f;
+    public float cappedMovementSpeed = 4f;
 
     public float speed = 5f;
     public float jumpForce = 10f;
+    public float actorHeight = 1.1f;
 
     private Vector2 oldVelocity;
 
@@ -35,7 +37,30 @@ public abstract class PlatformingActorController : ActorController {
 
     private void FixedUpdate()
     {
-        oldVelocity = body.velocity;   
+        oldVelocity = body.velocity;
+        CheckGrounded();
+    }
+
+    protected void CheckGrounded()
+    {
+        if (animator.GetBool(AnimatorStates.IsGrounded))
+        {
+            return;
+        }
+
+        int layerMask = 1 << (int) Layers.GEOMETRY;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, actorHeight / 2f, layerMask);
+        if (hit.transform == null)
+        {
+            return;
+        }
+        var burnController = BurnController.GetInstance();
+        if (burnController.IsOutsideZone(hit.point))
+        {
+            return;
+        }
+        Debug.Log("Ground");
+        Ground();
     }
 
     protected void Jump(float horizontalForce, float verticalForce)
@@ -50,6 +75,15 @@ public abstract class PlatformingActorController : ActorController {
         body.velocity = velocity;
         animator.SetBool(AnimatorStates.IsJumping, true);
         animator.SetBool(AnimatorStates.IsGrounded, false);
+    }
+
+    protected void CapMovement()
+    {
+        var velocity = body.velocity;
+        float sign = Mathf.Sign(velocity.x);
+        velocity.x = cappedMovementSpeed * sign;
+        body.velocity = velocity;
+        oldVelocity = velocity;
     }
 
     protected void CapJump()
@@ -104,7 +138,6 @@ public abstract class PlatformingActorController : ActorController {
 
     public void Ground()
     {
-        Debug.Log("Grounded");
         animator.SetBool(AnimatorStates.IsGrounded, true);
         animator.SetBool(AnimatorStates.CanJump, true);
         RestoreVelocityAfterCollision(true, false);

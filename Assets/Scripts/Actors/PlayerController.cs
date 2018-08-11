@@ -14,6 +14,11 @@ public class PlayerController : PlatformingActorController {
         var horizontalThrust = Input.GetAxis("Horizontal");
         var horizontalForce = speed * horizontalThrust * Time.deltaTime;
         Move(horizontalForce);
+
+        if (horizontalThrust == 0)
+        {
+            CapMovement();
+        }
     }
 
     protected override void Act()

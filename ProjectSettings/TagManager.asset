@@ -15,10 +15,10 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Item
+  - Enemy
+  - Geometry
   - 
   - 
   - 

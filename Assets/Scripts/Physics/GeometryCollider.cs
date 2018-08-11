@@ -69,7 +69,7 @@ public class GeometryCollider : MonoBehaviour {
         }
         else if (pointsBelow == count && platformer != null)
         {
-            platformer.Ground();
+            //platformer.Ground();
         }
     }
 
