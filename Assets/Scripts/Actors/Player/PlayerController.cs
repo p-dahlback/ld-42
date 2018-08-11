@@ -7,11 +7,12 @@ public class PlayerController : PlatformingActorController {
     public bool hasJetPack = false;
     public float jetpackThrust = 10f;
 
+    private Player player;
     private bool hadJetPack = false;
 
     // Use this for initialization
     void Start () {
-		
+        player = GetComponent<Player>();
 	}
 
     protected override void Move()
@@ -28,7 +29,11 @@ public class PlayerController : PlatformingActorController {
 
     protected override void Act()
     {
-
+        if (Input.GetButton("Fire1"))
+        {
+            var weapon = player.weaponContainer.GetComponentInChildren<Weapon>();
+            weapon.Fire();
+        }
     }
 
     protected override void Jump()
@@ -56,7 +61,7 @@ public class PlayerController : PlatformingActorController {
         }
     }
 
-    protected void Fly()
+    protected virtual void Fly()
     {
         animator.SetBool(AnimatorStates.CanJump, true);
         var thrust = Input.GetButton("Jump");

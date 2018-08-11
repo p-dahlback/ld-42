@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformingStates : MonoBehaviour {
+public class Player : Entity {
+
+    public Transform weaponContainer;
+    public Transform jetpackContainer;
 
 	// Use this for initialization
 	void Start () {

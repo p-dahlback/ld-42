@@ -27,7 +27,7 @@ public abstract class PlatformingActorController : ActorController {
 
     private Vector2 oldVelocity;
 
-    void Update()
+    protected override void Update()
     {
         Move();
         Jump();
@@ -72,6 +72,7 @@ public abstract class PlatformingActorController : ActorController {
         velocity.x += horizontalForce;
         velocity.y = verticalForce;
         body.velocity = velocity;
+        animator.SetBool(AnimatorStates.CanJump, false);
         animator.SetBool(AnimatorStates.IsJumping, true);
         animator.SetBool(AnimatorStates.IsGrounded, false);
     }

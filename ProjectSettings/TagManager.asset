@@ -19,8 +19,8 @@ TagManager:
   - Item
   - Enemy
   - Geometry
-  - 
-  - 
+  - Bullet
+  - Wall
   - 
   - 
   - 

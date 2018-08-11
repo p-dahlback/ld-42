@@ -34,7 +34,6 @@ public class GeometryCollider : MonoBehaviour {
             var platformer = collision.gameObject.GetComponent<PlatformingActorController>();
             if (platformer != null) { platformer.Fall(); }
             StartCoroutine("ReactivateCollision", collision);
-            Debug.Log("Ignoring Collision");
         }
     }
 
@@ -62,7 +61,6 @@ public class GeometryCollider : MonoBehaviour {
     private IEnumerator ReactivateCollision(Collision2D collision)
     {
         yield return new WaitForSeconds(0.5f);
-        Debug.Log("Reactivating Collisions");
         Physics2D.IgnoreCollision(collision.collider, collision.otherCollider, false);
     }
 }
