@@ -2,42 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : WeaponBullet {
 
     public Transform hitPrefab;
     public float speed = 20f;
-    public float damage = 1f;
-    public float lifeTime = 3f;
+    public float angularSpeed = 0f;
+    public float inaccuracy = 0f;
     public bool disappearOnImpact = true;
 
     protected Rigidbody2D body;
-    private float time = 0.0f;
     private Vector3 oldVelocity;
+    private float oldAngularVelocity;
 
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
     }
-
-    protected virtual void Start()
+    
+    protected override void OnEnable()
     {
-        time = 0f;
+        base.OnEnable();
+        float inaccuracyValue = Random.Range(0, inaccuracy * 2);
+        var vector = new Vector2(1, inaccuracyValue - inaccuracy);
+        body.velocity = transform.rotation * vector.normalized * speed;
+        body.angularVelocity = angularSpeed;
     }
-
-    protected virtual void OnEnable()
-    {
-        body.velocity = transform.rotation * (Vector2.right * speed);
-        time = 0f;
-    }
-
-    // Update is called once per frame
-    protected virtual void Update () {
-        time += Time.deltaTime;
-        if (time >= lifeTime)
-        {
-            gameObject.SetActive(false);
-        }
-	}
 
     protected virtual void OnHit()
     {
@@ -50,6 +39,7 @@ public class Projectile : MonoBehaviour {
     private void FixedUpdate()
     {
         oldVelocity = body.velocity;
+        oldAngularVelocity = body.angularVelocity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -68,6 +58,7 @@ public class Projectile : MonoBehaviour {
         {
             Physics2D.IgnoreCollision(collision.collider, collision.otherCollider, true);
             body.velocity = oldVelocity;
+            body.angularVelocity = oldAngularVelocity;
             StartCoroutine("ReactivateCollision", collision);
         }
         OnHit();
@@ -76,6 +67,9 @@ public class Projectile : MonoBehaviour {
     private IEnumerator ReactivateCollision(Collision2D collision)
     {
         yield return new WaitForSeconds(1f);
-        Physics2D.IgnoreCollision(collision.collider, collision.otherCollider, false);
+        if (collision.collider != null && collision.otherCollider != null)
+        {
+            Physics2D.IgnoreCollision(collision.collider, collision.otherCollider, false);
+        }
     }
 }

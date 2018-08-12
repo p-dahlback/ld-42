@@ -61,6 +61,9 @@ public class GeometryCollider : MonoBehaviour {
     private IEnumerator ReactivateCollision(Collision2D collision)
     {
         yield return new WaitForSeconds(0.5f);
-        Physics2D.IgnoreCollision(collision.collider, collision.otherCollider, false);
+        if (collision.collider != null && collision.otherCollider != null)
+        {
+            Physics2D.IgnoreCollision(collision.collider, collision.otherCollider, false);
+        }
     }
 }

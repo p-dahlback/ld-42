@@ -5,28 +5,42 @@ using UnityEngine;
 public class Weapon : MonoBehaviour {
     
     public Transform bulletSpawn;
-    public Transform bulletPrefab;
+    public WeaponBullet bulletPrefab;
+
+    public Rigidbody2D holder;
+    public Projectile throwable;
+    public Collider2D throwableHitBox;
 
     public float maxAmmo = 100f;
     public float ammo = 100f;
     public int maxBulletsAtATime = 5;
     public bool infiniteAmmo = false;
-
     public float cooldown = 0.1f;
+    public float knockback = 0f;
 
     private float cooldownTime = 0.0f;
     private float time = 0.0f;
 
-    private List<Transform> bullets = new List<Transform>();
-    private List<Transform> disabledBullets = new List<Transform>();
+    private List<WeaponBullet> bullets = new List<WeaponBullet>();
+    private List<WeaponBullet> disabledBullets = new List<WeaponBullet>();
 
     // Use this for initialization
     void Start () {
         ammo = maxAmmo;
+        if (holder == null)
+        {
+            var bodies = GetComponentsInParent<Rigidbody2D>();
+            holder = bodies[0];
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (transform.parent != null)
+        {
+            transform.localPosition = Vector3.zero;
+        }
+
 		if (cooldownTime > 0.0f)
         {
             time += Time.deltaTime;
@@ -38,6 +52,20 @@ public class Weapon : MonoBehaviour {
         }
         RetireBullets();
 	}
+
+    private void OnDestroy()
+    {
+        foreach (var bullet in disabledBullets)
+        {
+            if (bullet == null) { continue; }
+            Destroy(bullet.gameObject);
+        }
+        foreach (var bullet in bullets)
+        {
+            if (bullet == null) { continue; }
+            bullet.destroyWhenDone = true;
+        }
+    }
 
     private void RetireBullets()
     {
@@ -73,19 +101,20 @@ public class Weapon : MonoBehaviour {
         }
         GenerateBullet();
         WeaponAction();
+        Knockback();
         cooldownTime = cooldown;
     }
 
     private void GenerateBullet()
     {
-        Transform bullet;
+        WeaponBullet bullet;
         if (disabledBullets.Count > 0)
         {
             bullet = disabledBullets[0];
-            bullet.parent = bulletSpawn;
-            bullet.localPosition = Vector3.zero;
-            bullet.localScale = Vector3.one;
-            bullet.localRotation = Quaternion.identity;
+            bullet.transform.parent = bulletSpawn;
+            bullet.transform.localPosition = Vector3.zero;
+            bullet.transform.localScale = Vector3.one;
+            bullet.transform.localRotation = Quaternion.identity;
             bullet.gameObject.SetActive(true);
             disabledBullets.RemoveAt(0);
         }
@@ -93,12 +122,34 @@ public class Weapon : MonoBehaviour {
         {
             bullet = Instantiate(bulletPrefab, bulletSpawn);
         }
-        bullet.parent = null;
+        bullet.transform.parent = null;
         bullets.Add(bullet);
+    }
+
+    private void Knockback()
+    {
+        var direction = transform.rotation * Vector2.left;
+        holder.AddForce(direction * knockback);
     }
 
     protected virtual void WeaponAction()
     {
 
+    }
+
+    public void Throw()
+    {
+        transform.parent = null;
+        var direction = transform.rotation * Vector3.right;
+        if (direction.x < 0)
+        {
+            throwable.angularSpeed = -throwable.angularSpeed;
+        }
+        // Disable weapon usage
+        enabled = false;
+        // Enable thrown projectile
+        throwable.enabled = true;
+        throwableHitBox.enabled = true;
+        throwable.gameObject.layer = (int)Layers.BULLET;
     }
 }

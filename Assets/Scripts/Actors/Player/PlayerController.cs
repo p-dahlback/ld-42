@@ -15,6 +15,12 @@ public class PlayerController : PlatformingActorController {
         player = GetComponent<Player>();
 	}
 
+    protected override void Update()
+    {
+        base.Update();
+        ClampWithinLevel();
+    }
+
     protected override void Move()
     {
         var horizontalThrust = Input.GetAxis("Horizontal");
@@ -32,7 +38,18 @@ public class PlayerController : PlatformingActorController {
         if (Input.GetButton("Fire1"))
         {
             var weapon = player.weaponContainer.GetComponentInChildren<Weapon>();
-            weapon.Fire();
+            if (weapon != null)
+            {
+                weapon.Fire();
+            }
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            var weapon = player.weaponContainer.GetComponentInChildren<Weapon>();
+            if (weapon != null)
+            {
+                weapon.Throw();
+            }
         }
     }
 
@@ -68,6 +85,26 @@ public class PlayerController : PlatformingActorController {
         if (thrust)
         {
             Jump(0, jetpackThrust);
+        }
+    }
+
+    private void ClampWithinLevel()
+    {
+        var width = GameController.GetInstance().levelWidth;
+        var height = GameController.GetInstance().levelHeight;
+        var position = transform.position;
+
+        if (position.x - .5f < -width / 2)
+        {
+            position.x = -width / 2 + .5f;
+        }
+        else if (position.x + .5f >= width / 2)
+        {
+            position.x = width / 2 - .5f;
+        }
+        if (position.y >= height / 2 - .5f)
+        {
+            position.y = height / 2 - .5f;
         }
     }
 }

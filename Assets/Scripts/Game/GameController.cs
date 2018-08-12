@@ -4,8 +4,28 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    private static GameController sInstance;
+
+    public static GameController GetInstance()
+    {
+        return sInstance;
+    }
+
+    public float levelWidth = 27;
+    public float levelHeight = 20;
+
+
+    private void Awake()
+    {
+        if (sInstance != null && sInstance != this)
+        {
+            Destroy(sInstance.gameObject);
+        }
+        sInstance = this;
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

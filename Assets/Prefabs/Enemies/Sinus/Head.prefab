@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   health: 2
-  radiusIncrease: 0.4
+  radiusIncrease: 0.8
 --- !u!114 &114524907255241414
 MonoBehaviour:
   m_ObjectHideFlags: 1
