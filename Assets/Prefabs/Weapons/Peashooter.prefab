@@ -285,7 +285,7 @@ MonoBehaviour:
   ammo: 20
   maxBulletsAtATime: 6
   infiniteAmmo: 0
-  cooldown: 0.5
+  cooldown: 0.25
   knockback: 0
 --- !u!114 &114466287161913386
 MonoBehaviour:

@@ -10,6 +10,9 @@ public class OcclusionMesh : MonoBehaviour {
     public int circlePoints = 12;
 
     private float oldRadius = 0f;
+    private float oldWidth = 0f;
+    private float oldHeight = 0f;
+    private int oldPoints = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -18,12 +21,15 @@ public class OcclusionMesh : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (radius == oldRadius)
+		if (radius == oldRadius && width == oldWidth && height == oldHeight && circlePoints == oldPoints)
         {
             return;
         }
         GenerateMesh();
         oldRadius = radius;
+        oldWidth = width;
+        oldHeight = height;
+        oldPoints = circlePoints;
 	}
 
     private void GenerateMesh()
@@ -51,8 +57,9 @@ public class OcclusionMesh : MonoBehaviour {
         // Triangles
         int[] triangles = new int[] { 0, 1, 2, 2, 3, 0 };
 
-        mesh.triangles = triangles;
+        mesh.Clear();
         mesh.vertices = vertices;
+        mesh.triangles = triangles;
     }
 
     private void GenerateCircleCutOut()
@@ -76,6 +83,7 @@ public class OcclusionMesh : MonoBehaviour {
             angle += angleStep;
         }
 
+        mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = GetCircleTriangles(vertices);
     }

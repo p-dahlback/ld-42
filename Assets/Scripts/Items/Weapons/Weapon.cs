@@ -31,7 +31,10 @@ public class Weapon : MonoBehaviour {
         if (holder == null)
         {
             var bodies = transform.parent.GetComponentsInParent<Rigidbody2D>();
-            holder = bodies[0];
+            if (bodies.Length > 0)
+            {
+                holder = bodies[0];
+            }
         }
 	}
 	
@@ -134,6 +137,10 @@ public class Weapon : MonoBehaviour {
 
     private void Knockback()
     {
+        if (holder == null)
+        {
+            return;
+        }
         var direction = transform.rotation * Vector2.left;
         holder.AddForce(direction * knockback);
     }

@@ -53,7 +53,7 @@ public abstract class ActorController : MonoBehaviour {
 
     }
 
-    public void Damage(float value)
+    public virtual void Damage(float value)
     {
         entity.health = entity.health - value;
         if (entity.health <= 0)
@@ -68,6 +68,11 @@ public abstract class ActorController : MonoBehaviour {
 
     protected void UpdateHeading()
     {
+        if (body == null)
+        {
+            return;
+        }
+
         if (body.velocity.x < 0)
         {
             if (animator != null)

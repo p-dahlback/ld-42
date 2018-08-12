@@ -19,10 +19,13 @@ public class SinusController : ActorController {
 
     public float timeBetweenSegmentDeath = 0.2f;
 
+    public bool ignoreCollisions = false;
+
     private SinusSegment[] bodySegments;
 
     private Vector2 target;
     private float time = 0.0f;
+    private Vector2 oldVelocity;
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +40,17 @@ public class SinusController : ActorController {
         time %= period;
         Move();
 	}
+
+    private void FixedUpdate()
+    {
+        oldVelocity = body.velocity;
+    }
+
+    public override void RestoreVelocity()
+    {
+        base.RestoreVelocity();
+        body.velocity = oldVelocity;
+    }
 
     protected override void Move()
     {
@@ -123,6 +137,14 @@ public class SinusController : ActorController {
 
     public void OnSegmentDeath(int index)
     {
+        for (int i = 1; i < segments; i++)
+        {
+            var segment = bodySegments[i];
+            if (segment != null)
+            {
+                segment.IgnorePlayerCollisions();
+            }
+        }
         StartCoroutine("KillNearbySegments", index);
     }
 

@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   health: 1
-  radiusIncrease: 0.4
+  radiusIncrease: 0.2
   drops:
   - prefab: {fileID: 4934012564544662, guid: cee1e914db7560647a9100e791daa70a, type: 2}
     likelihood: 0.05

@@ -171,10 +171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b425040cd54254aa10b2dbe26e1235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 4
+  lifeTime: 3
+  destroyWhenDone: 0
   hitPrefab: {fileID: 4564008476075602, guid: f46ee468776fd2345b84b9a8def9de2c, type: 2}
   speed: 2
-  damage: 1
-  lifeTime: 3
+  angularSpeed: 0
+  inaccuracy: 0
   disappearOnImpact: 1
   fullSpeed: 30
   delayUntilAcceleration: 0.3

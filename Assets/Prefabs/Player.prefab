@@ -236,7 +236,7 @@ MonoBehaviour:
   cappedJumpSpeed: 0.5
   cappedMovementSpeed: 0
   speed: 80
-  jumpForce: 19
+  jumpForce: 19.5
   actorHeight: 1.5
   hasJetPack: 0
   jetpackThrust: 6

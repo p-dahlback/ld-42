@@ -286,7 +286,7 @@ MonoBehaviour:
   maxBulletsAtATime: 100
   infiniteAmmo: 0
   cooldown: 0.05
-  knockback: 10
+  knockback: 18
 --- !u!114 &114172889670859398
 MonoBehaviour:
   m_ObjectHideFlags: 1

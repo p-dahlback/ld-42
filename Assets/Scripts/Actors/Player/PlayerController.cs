@@ -127,4 +127,17 @@ public class PlayerController : PlatformingActorController {
         yield return new WaitForSeconds(0.5f);
         animator.SetBool(AnimatorStates.IsDropping, false);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == (int)Layers.ENEMY)
+        {
+            var enemyActor = collision.collider.GetComponent<ActorController>();
+            if (enemyActor != null)
+            {
+                enemyActor.RestoreVelocity();
+            }
+            Damage(1);
+        }
+    }
 }

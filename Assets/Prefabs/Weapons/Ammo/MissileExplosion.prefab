@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.8
-  damage: 1
+  damage: 2
 --- !u!114 &114685948165548670
 MonoBehaviour:
   m_ObjectHideFlags: 1
