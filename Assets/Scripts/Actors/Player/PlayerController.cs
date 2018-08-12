@@ -6,6 +6,8 @@ public class PlayerController : PlatformingActorController {
 
     public bool hasJetPack = false;
     public float jetpackThrust = 10f;
+    public Transform jetpackContainer;
+    public bool isInvincible = false;
 
     private Player player;
     private bool hadJetPack = false;
@@ -19,6 +21,22 @@ public class PlayerController : PlatformingActorController {
     {
         base.Update();
         ClampWithinLevel();
+        if (animator.GetInteger(ActorController.AnimatorStates.Heading) < 0)
+        {
+            jetpackContainer.localPosition = new Vector3(0.3f, 0, 0);
+        } else
+        {
+            jetpackContainer.localPosition = new Vector3(-0.3f, 0, 0);
+        }
+    }
+
+    public override void Damage(float value)
+    {
+        if (isInvincible)
+        {
+            return;
+        }
+        base.Damage(value);
     }
 
     protected override void OnDeath()

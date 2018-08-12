@@ -12,18 +12,24 @@ public class ErasureBeam : WeaponBullet {
 
 	// Use this for initialization
 	void Start () {
-        BurnController.GetInstance().AddErasureBeam(this);
+        if (BurnController.GetInstance() != null)
+        {
+            BurnController.GetInstance().AddErasureBeam(this);
+        }
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected override void Update () {
         if (occluder != null)
         {
             MoveFire();
         }
         else if (!isDone)
         {
-            BurnController.GetInstance().RemoveErasureBeam(this);
+            if (BurnController.GetInstance() != null)
+            {
+                BurnController.GetInstance().RemoveErasureBeam(this);
+            }
             isDone = true;
             foreach (var system in particles)
             {
@@ -38,7 +44,11 @@ public class ErasureBeam : WeaponBullet {
 
     private void MoveFire()
     {
-        var radius = BurnController.GetInstance().burningZone.radius;
+        float radius = 0.0f;
+        if (BurnController.GetInstance() != null)
+        {
+            radius = BurnController.GetInstance().burningZone.radius;
+        }
         foreach (var system in particles)
         {
             var width = occluder.transform.localScale.x;

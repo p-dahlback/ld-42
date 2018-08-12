@@ -7,6 +7,7 @@
 */
 
 using UnityEngine;
+using UnityEngine.UI;
 
 [AddComponentMenu("Rendering/SetRenderQueue")]
 
@@ -17,7 +18,16 @@ public class SetRenderQueue : MonoBehaviour
 
     protected void Awake()
     {
-        Material[] materials = GetComponent<Renderer>().materials;
+        Material[] materials;
+        var renderer = GetComponent<Renderer>();
+        if (renderer == null)
+        {
+            var image = GetComponent<Image>();
+            materials = new Material[] { image.material };
+        } else
+        {
+            materials = renderer.materials;
+        }
         for (int i = 0; i < materials.Length && i < m_queues.Length; ++i)
         {
             materials[i].renderQueue = m_queues[i];

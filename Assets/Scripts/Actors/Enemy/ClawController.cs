@@ -18,7 +18,7 @@ public class ClawController : ActorController {
 
 	// Use this for initialization
 	void Start () {
-		
+        animator = GetComponent<Animator>();
 	}
 
     protected override void Update()
@@ -67,11 +67,14 @@ public class ClawController : ActorController {
 
         if (shooting)
         {
+            animator.SetBool("IsShooting", true);
             weapon.Fire();
             if (shootTime >= shootDuration)
             {
                 shootTime -= shootDuration;
                 shooting = false;
+
+                animator.SetBool("IsShooting", false);
             }
         }
     }

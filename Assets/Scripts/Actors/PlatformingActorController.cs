@@ -10,6 +10,7 @@ public abstract class PlatformingActorController : ActorController {
         public static readonly string IsJumping = "IsJumping";
         public static readonly string IsGrounded = "IsGrounded";
         public static readonly string IsDropping = "IsDropping";
+        public static readonly string HorizontalSpeed = "HorizontalSpeed";
     }
 
     protected abstract void Jump();
@@ -41,6 +42,7 @@ public abstract class PlatformingActorController : ActorController {
         {
             animator.SetBool(AnimatorStates.IsJumping, false);
         }
+        animator.SetFloat(AnimatorStates.HorizontalSpeed, Mathf.Abs(body.velocity.x));
         CheckGrounded();
     }
 

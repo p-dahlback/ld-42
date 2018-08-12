@@ -6,6 +6,7 @@ public class BossHeadController : ActorController {
 
     public Transform beamPrefab;
     public Weapon weapon;
+    public SpriteFlasher flasher;
     public bool isInvincible = true;
     public bool canGoInvincible = true;
     public float beamDelay = 2.0f;
@@ -58,6 +59,8 @@ public class BossHeadController : ActorController {
 
     private void PrepareToFireBeam()
     {
+        animator.SetBool("IsShooting", true);
+        flasher.enabled = true;
         isInvincible = false;
         StartCoroutine("FireBeamAfterDelay", beamDelay);
     }
@@ -65,12 +68,15 @@ public class BossHeadController : ActorController {
     private IEnumerator FireBeamAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        flasher.enabled = false;
         FireBeam();
         yield return new WaitForSeconds(beamDuration);
         if (canGoInvincible)
         {
             isInvincible = true;
         }
+
+        animator.SetBool("IsShooting", false);
     }
 
     private void FireBeam()

@@ -11,7 +11,10 @@ public class SceneSwitcher : MonoBehaviour {
 
     void Awake()
     {
-        StartCoroutine("FadeToClear");
+        if (GetActiveSceneIndex() != 0)
+        {
+            StartCoroutine("FadeToClear");
+        }
     }
 
     public void LoadNextSceneWithDelay()
