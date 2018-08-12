@@ -14,7 +14,10 @@ public class SplashDamage : MonoBehaviour {
         foreach (var collider in colliders)
         {
             var actor = collider.GetComponent<ActorController>();
-            actor.Damage(damage);
+            if (actor != null)
+            {
+                actor.Damage(damage);
+            }
         }
 
         enabled = false;

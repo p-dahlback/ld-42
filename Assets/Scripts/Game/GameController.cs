@@ -71,6 +71,10 @@ public class GameController : MonoBehaviour {
     public void OnExtraLife(int lives)
     {
         this.lives += lives;
+        if (this.lives > 9)
+        {
+            this.lives = 9;
+        }
     }
 
     private IEnumerator SpawnPlayerAfterDelay()
