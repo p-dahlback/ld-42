@@ -5,29 +5,43 @@ using UnityEngine;
 public class Pickup : MonoBehaviour {
 
     public Transform pickupPrefab;
+    public float lifeTime = 10f;
+    public int extraLives = 0;
+
+    private float time = 0f;
 
 	// Use this for initialization
 	void Start () {
-		
+        time = 0.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        time += Time.deltaTime;
+        if (time >= lifeTime)
+        {
+            Destroy(gameObject);
+        }
 	}
 
     protected void GrantPickup(Player player)
     {
-        var transform = Instantiate(pickupPrefab);
-        var weapon = transform.GetComponent<Weapon>();
-        if (weapon != null)
+        if (pickupPrefab != null)
         {
-            GrantWeapon(weapon, player);
+            var transform = Instantiate(pickupPrefab);
+            var weapon = transform.GetComponent<Weapon>();
+            if (weapon != null)
+            {
+                GrantWeapon(weapon, player);
+            }
+            var jetpack = transform.GetComponent<Jetpack>();
+            if (jetpack != null)
+            {
+                GrantJetpack(jetpack, player);
+            }
         }
-        var jetpack = transform.GetComponent<Jetpack>();
-        if (jetpack != null)
-        {
-            GrantJetpack(jetpack, player);
+        if (extraLives > 0) {
+            GameController.GetInstance().OnExtraLife(extraLives);
         }
     }
 
@@ -39,6 +53,7 @@ public class Pickup : MonoBehaviour {
             oldWeapon.Remove();
         }
         weapon.transform.parent = player.weaponContainer;
+        weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
         weapon.holder = player.GetComponent<Rigidbody2D>();
         GameController.GetInstance().currentWeapon = weapon;
@@ -52,6 +67,8 @@ public class Pickup : MonoBehaviour {
             Destroy(oldJetpack.gameObject);
         }
         jetpack.transform.parent = player.jetpackContainer;
+        jetpack.transform.localPosition = Vector3.zero;
+        jetpack.transform.localRotation = Quaternion.identity;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -59,6 +76,8 @@ public class Pickup : MonoBehaviour {
         Player player = collision.collider.GetComponent<Player>();
         if (player != null)
         {
+            PlayerController playerController = collision.collider.GetComponent<PlayerController>();
+            playerController.RestoreVelocityAfterCollision(true, true);
             GrantPickup(player);
             Destroy(gameObject);
         }

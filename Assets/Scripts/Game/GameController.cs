@@ -66,6 +66,11 @@ public class GameController : MonoBehaviour {
         currentWeapon = null;
     }
 
+    public void OnExtraLife(int lives)
+    {
+        this.lives += lives;
+    }
+
     private IEnumerator SpawnPlayerAfterDelay()
     {
         yield return new WaitForSeconds(spawnTime);
@@ -75,6 +80,7 @@ public class GameController : MonoBehaviour {
     
     private void SpawnPlayer()
     {
-        Instantiate(playerPrefab, playerSpawn);
+        Instantiate(playerPrefab, playerSpawn.transform.position, Quaternion.identity);
+
     }
 }

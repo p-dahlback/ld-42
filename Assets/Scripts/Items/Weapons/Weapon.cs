@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour {
     public Projectile throwable;
     public Collider2D throwableHitBox;
 
-    public string name;
+    public string displayName;
     public float maxAmmo = 100f;
     public float ammo = 100f;
     public int maxBulletsAtATime = 5;
