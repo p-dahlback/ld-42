@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -9,7 +10,8 @@ public class GameController : MonoBehaviour {
     public enum State
     {
         PLAYING,
-        GAME_OVER
+        GAME_OVER,
+        WON
     }
 
     public static GameController GetInstance()
@@ -52,11 +54,17 @@ public class GameController : MonoBehaviour {
 
     public void OnPlayerDeath()
     {
+        if (state == State.WON)
+        {
+            return;
+        }
+
         lives--;
         if (lives <= 0)
         {
             lives = 0;
             state = State.GAME_OVER;
+            StartCoroutine("GameOverAfterDelay");
         } else
         {
             StartCoroutine("SpawnPlayerAfterDelay");
@@ -77,6 +85,17 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public void OnBossSpawned()
+    {
+        GameCanvasController.GetInstance().OnBossAppeared();
+    }
+
+    public void OnBossKilled()
+    {
+        state = State.WON;
+        StartCoroutine("VictoryAfterDelay");
+    }
+
     private IEnumerator SpawnPlayerAfterDelay()
     {
         yield return new WaitForSeconds(spawnTime);
@@ -93,5 +112,17 @@ public class GameController : MonoBehaviour {
     {
         var player = Instantiate(playerPrefab, playerSpawn.transform.position, Quaternion.identity);
         this.player = player.GetComponent<PlayerController>();
+    }
+
+    private IEnumerator GameOverAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        GameCanvasController.GetInstance().OnGameOver();
+    }
+
+    private IEnumerator VictoryAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        GameCanvasController.GetInstance().OnVictory();
     }
 }
