@@ -90,16 +90,19 @@ public class SinusController : ActorController {
     private IEnumerator KillNearbySegments(int index)
     {
         yield return new WaitForSeconds(timeBetweenSegmentDeath);
-        Debug.LogFormat("Killing segments close to {0}", index);
         var nextSegmentIndex = index + 1;
         var previousSegmentIndex = index - 1;
 
         var nextSegment = nextSegmentIndex < segments ? bodySegments[nextSegmentIndex] : null;
         var previousSegment = previousSegmentIndex >= 0 ? bodySegments[previousSegmentIndex] : null;
 
-        KillSegment(nextSegment);
-        KillSegment(previousSegment);
-
+        if (nextSegment != null)
+        {
+            // Only continue destroying the enemy
+            // if this wasn't the tail
+            KillSegment(nextSegment);
+            KillSegment(previousSegment);
+        }
         bool stillExists = false;
         foreach (var segment in bodySegments)
         {

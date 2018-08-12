@@ -30,6 +30,10 @@ public class WeaponBullet : MonoBehaviour {
         if (time >= lifeTime)
         {
             gameObject.SetActive(false);
+            if (destroyWhenDone)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

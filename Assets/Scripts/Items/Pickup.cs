@@ -36,7 +36,7 @@ public class Pickup : MonoBehaviour {
         var oldWeapon = player.weaponContainer.GetComponentInChildren<Weapon>();
         if (oldWeapon)
         {
-            Destroy(oldWeapon.gameObject);
+            oldWeapon.Remove();
         }
         weapon.transform.parent = player.weaponContainer;
     }

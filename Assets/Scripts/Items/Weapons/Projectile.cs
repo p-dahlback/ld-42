@@ -53,6 +53,10 @@ public class Projectile : WeaponBullet {
         if (disappearOnImpact)
         {
             gameObject.SetActive(false);
+            if (destroyWhenDone)
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {

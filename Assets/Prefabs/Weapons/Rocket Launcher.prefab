@@ -301,7 +301,7 @@ MonoBehaviour:
   lifeTime: 3
   destroyWhenDone: 1
   hitPrefab: {fileID: 0}
-  speed: 20
-  angularSpeed: 45
+  speed: 15
+  angularSpeed: 640
   inaccuracy: 0
   disappearOnImpact: 0

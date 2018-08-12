@@ -29,7 +29,7 @@ public class Weapon : MonoBehaviour {
         ammo = maxAmmo;
         if (holder == null)
         {
-            var bodies = GetComponentsInParent<Rigidbody2D>();
+            var bodies = transform.parent.GetComponentsInParent<Rigidbody2D>();
             holder = bodies[0];
         }
 	}
@@ -54,6 +54,11 @@ public class Weapon : MonoBehaviour {
 	}
 
     private void OnDestroy()
+    {
+        DestroyBullets();
+    }
+
+    private void DestroyBullets()
     {
         foreach (var bullet in disabledBullets)
         {
@@ -137,8 +142,15 @@ public class Weapon : MonoBehaviour {
 
     }
 
+    public void Remove()
+    {
+        DestroyBullets();
+        Destroy(gameObject);
+    }
+
     public void Throw()
     {
+        DestroyBullets();
         transform.parent = null;
         var direction = transform.rotation * Vector3.right;
         if (direction.x < 0)

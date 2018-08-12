@@ -106,5 +106,6 @@ public class PlayerController : PlatformingActorController {
         {
             position.y = height / 2 - .5f;
         }
+        transform.position = position;
     }
 }
