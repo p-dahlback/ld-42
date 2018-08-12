@@ -125,6 +125,19 @@ MonoBehaviour:
   maxHealth: 2
   health: 2
   radiusIncrease: 0.8
+  drops:
+  - prefab: {fileID: 4955208324957390, guid: 64c681c79ac3754448af95b12b536ec4, type: 2}
+    likelihood: 0.3
+  - prefab: {fileID: 4063572462954500, guid: 1d34a03788caaeb46aeb3a1940881ab6, type: 2}
+    likelihood: 0.3
+  - prefab: {fileID: 4469345399817584, guid: 50a2ad5474469c545ab3b0b2b46aedd6, type: 2}
+    likelihood: 0.2
+  - prefab: {fileID: 4686761410126050, guid: 2b1125af8c3c1fd4abd7d42232f6eb7c, type: 2}
+    likelihood: 0.1
+  - prefab: {fileID: 4934012564544662, guid: cee1e914db7560647a9100e791daa70a, type: 2}
+    likelihood: 0.1
+  - prefab: {fileID: 4752091830242540, guid: d0659924faf38e9488bcbed179612b13, type: 2}
+    likelihood: 0.1
 --- !u!114 &114524907255241414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c8ed800c13815478fd12e0de44bd65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathPrefab: {fileID: 0}
   entity: {fileID: 114400808012430084}
   body: {fileID: 0}
   animator: {fileID: 0}

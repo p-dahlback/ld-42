@@ -280,10 +280,11 @@ MonoBehaviour:
   holder: {fileID: 0}
   throwable: {fileID: 114466287161913386}
   throwableHitBox: {fileID: 61789872103022608}
-  maxAmmo: 100
-  ammo: 100
-  maxBulletsAtATime: 5
-  infiniteAmmo: 1
+  displayName: Peashooter
+  maxAmmo: 20
+  ammo: 20
+  maxBulletsAtATime: 6
+  infiniteAmmo: 0
   cooldown: 0.5
   knockback: 0
 --- !u!114 &114466287161913386
@@ -301,7 +302,7 @@ MonoBehaviour:
   lifeTime: 3
   destroyWhenDone: 1
   hitPrefab: {fileID: 0}
-  speed: 15
+  speed: 20
   angularSpeed: 640
   inaccuracy: 0
   disappearOnImpact: 0

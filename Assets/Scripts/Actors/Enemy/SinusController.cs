@@ -82,6 +82,11 @@ public class SinusController : ActorController {
         this.entity = bodySegments[0].GetComponent<Entity>();
     }
 
+    protected override void OnDeath()
+    {
+        // Ignore top on death call. Segments will handle this themselves.
+    }
+
     public void OnSegmentDeath(int index)
     {
         StartCoroutine("KillNearbySegments", index);

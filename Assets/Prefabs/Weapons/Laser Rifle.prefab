@@ -278,7 +278,7 @@ MonoBehaviour:
   lifeTime: 3
   destroyWhenDone: 1
   hitPrefab: {fileID: 0}
-  speed: 15
+  speed: 20
   angularSpeed: 640
   inaccuracy: 0
   disappearOnImpact: 0
@@ -299,9 +299,10 @@ MonoBehaviour:
   holder: {fileID: 0}
   throwable: {fileID: 114247825861167898}
   throwableHitBox: {fileID: 61612599178891824}
-  maxAmmo: 100
-  ammo: 100
+  displayName: Beam Rifle
+  maxAmmo: 8
+  ammo: 8
   maxBulletsAtATime: 1
-  infiniteAmmo: 1
+  infiniteAmmo: 0
   cooldown: 1
   knockback: 0

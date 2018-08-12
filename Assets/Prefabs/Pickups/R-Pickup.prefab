@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 50949810058839362}
   - component: {fileID: 114730375439556418}
   m_Layer: 10
-  m_Name: M-Pickup 1
+  m_Name: R-Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: aba35a616eaa3b244ae31cd22c57ba30, type: 2}
+  - {fileID: 2100000, guid: cb4b59c86f7cfec4584ed8f604833538, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -185,5 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8955ce0fa68f6e419a917ec5fc07dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 4939282740269070, guid: 2cc1f1dae00300d42b7ec424dd091a83,
+  pickupPrefab: {fileID: 4655736588808470, guid: 96e0f0eb4e543c2459d4f9dd21a65c01,
     type: 2}
+  lifeTime: 10
+  extraLives: 0
