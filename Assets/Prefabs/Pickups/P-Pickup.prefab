@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33424012683822482}
   - component: {fileID: 23738935080248426}
   - component: {fileID: 114119877867205164}
+  - component: {fileID: 114799274485277428}
   m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
@@ -40,7 +41,6 @@ GameObject:
   - component: {fileID: 61241097152952376}
   - component: {fileID: 50473022656721632}
   - component: {fileID: 114150898344507820}
-  - component: {fileID: 114664892684250004}
   m_Layer: 10
   m_Name: P-Pickup
   m_TagString: Untagged
@@ -190,12 +190,12 @@ MonoBehaviour:
     type: 2}
   lifeTime: 10
   extraLives: 0
---- !u!114 &114664892684250004
+--- !u!114 &114799274485277428
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1906654911626756}
+  m_GameObject: {fileID: 1288288294769502}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b21bc2635245a640a6d70501c81f702, type: 3}

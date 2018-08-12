@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0cd38e124841264485b1c01e9b6b062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathPrefab: {fileID: 0}
   entity: {fileID: 0}
   body: {fileID: 50308438116272322}
   animator: {fileID: 0}
@@ -86,6 +87,5 @@ MonoBehaviour:
   distanceBetweenSegments: 1
   amplitude: 0.6
   period: 2
-  speed: 1.5
-  target: {x: 10, y: -10}
+  speed: 3
   timeBetweenSegmentDeath: 1

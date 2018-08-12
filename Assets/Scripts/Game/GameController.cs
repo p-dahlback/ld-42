@@ -23,7 +23,9 @@ public class GameController : MonoBehaviour {
     public Transform playerSpawn;
     public Transform playerPrefab;
     public Transform defaultWeaponPickupPrefab;
+    public Transform jetpackPickupPrefab;
     public Weapon currentWeapon;
+    public PlayerController player;
     public float spawnTime = 1f;
 
     public int lives = 3;
@@ -76,11 +78,16 @@ public class GameController : MonoBehaviour {
         yield return new WaitForSeconds(spawnTime);
         SpawnPlayer();
         Instantiate(defaultWeaponPickupPrefab, playerSpawn);
+
+        if (BurnController.GetInstance().burningZone.radius < 9)
+        {
+            Instantiate(jetpackPickupPrefab, playerSpawn);
+        }
     }
     
     private void SpawnPlayer()
     {
-        Instantiate(playerPrefab, playerSpawn.transform.position, Quaternion.identity);
-
+        var player = Instantiate(playerPrefab, playerSpawn.transform.position, Quaternion.identity);
+        this.player = player.GetComponent<PlayerController>();
     }
 }

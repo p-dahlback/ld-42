@@ -6,9 +6,17 @@ public class BurnController : MonoBehaviour {
 
     private static BurnController sBurnController;
 
+    [System.Serializable]
+    public struct ScoreMultiplier
+    {
+        public float multiplier;
+        public float radius;
+    }
+
     public BurningZone burningZone;
     public float decreasePerSecond = 0.2f;
     public float minimumRadius = 0.2f;
+    public ScoreMultiplier[] multipliers;
 
     private float targetRadius;
     private float startRadius;
@@ -51,7 +59,17 @@ public class BurnController : MonoBehaviour {
 
     public void AddToRadius(float value)
     {
-        burningZone.radius += value;
+        float multiplier = 1.0f;
+        foreach (var multiplierConfig in multipliers)
+        {
+            if (burningZone.radius <= multiplierConfig.radius)
+            {
+                multiplier = multiplierConfig.multiplier;
+                break;
+            }
+        }
+
+        burningZone.radius += value * multiplier;
         startRadius = burningZone.radius;
         targetRadius = startRadius - decreasePerSecond;
     }

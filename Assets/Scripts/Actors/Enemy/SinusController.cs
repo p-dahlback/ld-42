@@ -8,23 +8,25 @@ public class SinusController : ActorController {
     public SinusSegment bodyPrefab;
     public SinusSegment tailPrefab;
 
-    public int segments = 5;
+    public int maxSegments = 7;
+    public int segments = 4;
     public float distanceBetweenSegments = 1.5f;
 
     public float amplitude = 1f;
     public float period = 2f;
 
     public float speed = 10f;
-    public Vector2 target;
 
     public float timeBetweenSegmentDeath = 0.2f;
 
     private SinusSegment[] bodySegments;
 
+    private Vector2 target;
     private float time = 0.0f;
 
 	// Use this for initialization
 	void Start () {
+        DetermineTarget();
         GenerateBody();
 	}
 	
@@ -63,15 +65,47 @@ public class SinusController : ActorController {
 
     }
 
+    private void DetermineTarget()
+    {
+        var target = new Vector2();
+        if (transform.position.x < 0)
+        {
+            target.x = GameController.GetInstance().levelWidth;
+        }
+        else
+        {
+            target.x = -GameController.GetInstance().levelWidth;
+        }
+        var heightDiff = GameController.GetInstance().levelHeight / 3;
+        var random = Random.Range(0, 3);
+        switch (random)
+        {
+            case 0:
+                target.y = heightDiff;
+                break;
+            case 1:
+                target.y = 0;
+                break;
+            case 2:
+                target.y = -heightDiff;
+                break;
+        }
+        target.y += Random.Range(-1.5f, 1.5f);
+        this.target = target;
+    }
+
     private void GenerateBody()
     {
+        var segments = Random.Range(this.segments, maxSegments + 1);
+        var direction = target - (Vector2)transform.position;
+        var xSign = Mathf.Sign(direction.x);
         bodySegments = new SinusSegment[segments];
         bodySegments[0] = Instantiate(headPrefab, transform);
         for (int i = 1; i < segments - 1; i++)
         {
-            bodySegments[i] = Instantiate(bodyPrefab, transform.position - new Vector3(i * distanceBetweenSegments, 0, 0), Quaternion.identity, transform);
+            bodySegments[i] = Instantiate(bodyPrefab, transform.position - xSign * new Vector3(i * distanceBetweenSegments, 0, 0), Quaternion.identity, transform);
         }
-        bodySegments[segments - 1] = Instantiate(tailPrefab, transform.position - new Vector3(distanceBetweenSegments * (segments - 1), 0, 0), Quaternion.identity, transform);
+        bodySegments[segments - 1] = Instantiate(tailPrefab, transform.position - xSign * new Vector3(distanceBetweenSegments * (segments - 1), 0, 0), Quaternion.identity, transform);
 
         for (int i = 0; i < segments; i++)
         {

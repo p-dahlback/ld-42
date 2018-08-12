@@ -19,6 +19,8 @@ public abstract class ActorController : MonoBehaviour {
     public Animator animator;
     public SpriteRenderer spriteRenderer;
 
+    private bool isDead = false;
+
     // Use this for initialization
     void Start () {
         entity = GetComponent<Entity>();
@@ -92,8 +94,14 @@ public abstract class ActorController : MonoBehaviour {
 
     protected void CheckIsAlive()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (entity.health <= 0)
         {
+            isDead = true;
             OnDeath();
         }
     }

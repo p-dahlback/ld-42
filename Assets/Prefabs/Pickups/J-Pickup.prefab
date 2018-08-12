@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61824050810593322}
   - component: {fileID: 50587178981311704}
   - component: {fileID: 114011985765452626}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: J-Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 23443384663639380}
   - component: {fileID: 65025662932747478}
   - component: {fileID: 114255318910913374}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,6 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 4454339676718716, guid: ce719a0e6823235408817ea189b69c93,
     type: 2}
+  lifeTime: 10
+  extraLives: 0
 --- !u!114 &114255318910913374
 MonoBehaviour:
   m_ObjectHideFlags: 1

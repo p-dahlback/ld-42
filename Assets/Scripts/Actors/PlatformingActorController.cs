@@ -9,6 +9,7 @@ public abstract class PlatformingActorController : ActorController {
         public static readonly string CanJump = "CanJump";
         public static readonly string IsJumping = "IsJumping";
         public static readonly string IsGrounded = "IsGrounded";
+        public static readonly string IsDropping = "IsDropping";
     }
 
     protected abstract void Jump();
@@ -36,6 +37,10 @@ public abstract class PlatformingActorController : ActorController {
     private void FixedUpdate()
     {
         oldVelocity = body.velocity;
+        if (body.velocity.y < 0)
+        {
+            animator.SetBool(AnimatorStates.IsJumping, false);
+        }
         CheckGrounded();
     }
 

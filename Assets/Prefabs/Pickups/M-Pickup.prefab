@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33328235618215658}
   - component: {fileID: 23373841667676052}
   - component: {fileID: 114336271631651044}
+  - component: {fileID: 114029971617182362}
   m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
@@ -161,6 +162,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.7}
   m_EdgeRadius: 0
+--- !u!114 &114029971617182362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1462998069734816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b21bc2635245a640a6d70501c81f702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: -45
+  axis: 1
 --- !u!114 &114336271631651044
 MonoBehaviour:
   m_ObjectHideFlags: 1

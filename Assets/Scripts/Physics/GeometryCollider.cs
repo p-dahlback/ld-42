@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GeometryCollider : MonoBehaviour {
 
+    public bool allowDrops = true;
+
     private ContactPoint2D[] contacts;
 
 	// Use this for initialization
@@ -28,13 +30,28 @@ public class GeometryCollider : MonoBehaviour {
             return;
         }
         
-        if (AreAllContactsOutsideZone(collision))
+        if (IsDropping(collision) || AreAllContactsOutsideZone(collision))
         {
             Physics2D.IgnoreCollision(collision.collider, collision.otherCollider, true);
             var platformer = collision.gameObject.GetComponent<PlatformingActorController>();
             if (platformer != null) { platformer.Fall(); }
             StartCoroutine("ReactivateCollision", collision);
         }
+    }
+
+    private bool IsDropping(Collision2D collision)
+    {
+        if (!allowDrops)
+        {
+            return false;
+        }
+
+        var actor = collision.collider.GetComponent<PlatformingActorController>();
+        if (actor == null)
+        {
+            return false;
+        }
+        return actor.animator.GetBool(PlatformingActorController.AnimatorStates.IsDropping);
     }
 
     private bool AreAllContactsOutsideZone(Collision2D collision)
@@ -60,7 +77,7 @@ public class GeometryCollider : MonoBehaviour {
 
     private IEnumerator ReactivateCollision(Collision2D collision)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         if (collision.collider != null && collision.otherCollider != null)
         {
             Physics2D.IgnoreCollision(collision.collider, collision.otherCollider, false);

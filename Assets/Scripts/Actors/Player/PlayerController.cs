@@ -61,6 +61,13 @@ public class PlayerController : PlatformingActorController {
 
     protected override void Jump()
     {
+        if (Input.GetAxisRaw("Vertical") < 0 && Input.GetButtonDown("Jump"))
+        {
+            animator.SetBool(AnimatorStates.IsDropping, true);
+            StartCoroutine("StopDropping");
+            return;
+        }
+
         if (hasJetPack)
         {
             Fly();
@@ -113,5 +120,11 @@ public class PlayerController : PlatformingActorController {
             position.y = height / 2 - .5f;
         }
         transform.position = position;
+    }
+
+    private IEnumerator StopDropping()
+    {
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool(AnimatorStates.IsDropping, false);
     }
 }
