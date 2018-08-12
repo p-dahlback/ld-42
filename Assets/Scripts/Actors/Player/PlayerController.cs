@@ -41,6 +41,11 @@ public class PlayerController : PlatformingActorController {
 
     protected override void Act()
     {
+        if (Debug.isDebugBuild && Input.GetKeyDown(KeyCode.R))
+        {
+            GameController.GetInstance().GetComponent<SceneSwitcher>().ReloadSceneWithDelay();
+        }
+
         if (Input.GetButton("Fire1"))
         {
             var weapon = player.weaponContainer.GetComponentInChildren<Weapon>();
