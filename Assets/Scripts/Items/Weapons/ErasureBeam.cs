@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ErasureBeam : MonoBehaviour {
+public class ErasureBeam : WeaponBullet {
 
     public ParticleSystem[] particles;
     public Collider2D occluder;
+    public bool followRadius = true;
 
     private bool isDone = false;
 
 	// Use this for initialization
 	void Start () {
-        BurnController.GetInstance().SetErasureBeam(this);
+        BurnController.GetInstance().AddErasureBeam(this);
 	}
 	
 	// Update is called once per frame
@@ -22,6 +23,7 @@ public class ErasureBeam : MonoBehaviour {
         }
         else if (!isDone)
         {
+            BurnController.GetInstance().RemoveErasureBeam(this);
             isDone = true;
             foreach (var system in particles)
             {
@@ -54,9 +56,12 @@ public class ErasureBeam : MonoBehaviour {
             position.x = sign * (width / 2);
             system.transform.localPosition = position;
 
-            // Update radius
-            var shapeModule = system.shape;
-            shapeModule.radius = radius;
+            if (followRadius)
+            {
+                // Update radius
+                var shapeModule = system.shape;
+                shapeModule.radius = radius;
+            }
         }
     }
 

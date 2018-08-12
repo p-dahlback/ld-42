@@ -81,6 +81,12 @@ public class Weapon : MonoBehaviour {
         for (int i = 0; i < bullets.Count; i++)
         {
             var bullet = bullets[i];
+            if (bullet == null)
+            {
+                bullets.RemoveAt(i);
+                i--;
+            }
+
             if (!bullet.gameObject.activeSelf)
             {
                 bullets.RemoveAt(i);

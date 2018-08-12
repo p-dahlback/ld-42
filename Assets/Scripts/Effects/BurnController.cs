@@ -21,7 +21,7 @@ public class BurnController : MonoBehaviour {
     private float targetRadius;
     private float startRadius;
 
-    private ErasureBeam erasureBeam;
+    private List<ErasureBeam> erasureBeams = new List<ErasureBeam>();
 
     public static BurnController GetInstance()
     {
@@ -76,17 +76,29 @@ public class BurnController : MonoBehaviour {
         targetRadius = startRadius - decreasePerSecond;
     }
 
-    public void SetErasureBeam(ErasureBeam beam)
+    public void AddErasureBeam(ErasureBeam beam)
     {
-        this.erasureBeam = beam;
+        this.erasureBeams.Add(beam);
+    }
+
+    public void RemoveErasureBeam(ErasureBeam beam)
+    {
+        this.erasureBeams.Remove(beam);
     }
 
     public bool IsOutsideZone(Vector2 point)
     {
         var result = burningZone.IsOutsideZone(point);
-        if (erasureBeam != null && !result)
+        if (!result)
         {
-            return erasureBeam.IsOutsideZone(point);
+            foreach (var beam in erasureBeams)
+            {
+                if (beam != null)
+                {
+                    result = beam.IsOutsideZone(point);
+                    if (result) { return true; }
+                }
+            }
         }
         return result;
     }
