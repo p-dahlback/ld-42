@@ -39,6 +39,12 @@ public abstract class PlatformingActorController : ActorController {
         CheckGrounded();
     }
 
+    public override void RestoreVelocity()
+    {
+        base.RestoreVelocity();
+        body.velocity = oldVelocity;
+    }
+
     protected void CheckGrounded()
     {
         if (animator.GetBool(AnimatorStates.IsGrounded))

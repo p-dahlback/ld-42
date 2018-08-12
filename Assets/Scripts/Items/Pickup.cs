@@ -39,6 +39,9 @@ public class Pickup : MonoBehaviour {
             oldWeapon.Remove();
         }
         weapon.transform.parent = player.weaponContainer;
+        weapon.transform.localRotation = Quaternion.identity;
+        weapon.holder = player.GetComponent<Rigidbody2D>();
+        GameController.GetInstance().currentWeapon = weapon;
     }
 
     protected void GrantJetpack(Jetpack jetpack, Player player)
@@ -51,10 +54,13 @@ public class Pickup : MonoBehaviour {
         jetpack.transform.parent = player.jetpackContainer;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Player player = collision.GetComponent<Player>();
-        GrantPickup(player);
-        Destroy(gameObject);
+        Player player = collision.collider.GetComponent<Player>();
+        if (player != null)
+        {
+            GrantPickup(player);
+            Destroy(gameObject);
+        }
     }
 }

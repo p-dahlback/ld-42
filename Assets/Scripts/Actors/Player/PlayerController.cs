@@ -21,6 +21,12 @@ public class PlayerController : PlatformingActorController {
         ClampWithinLevel();
     }
 
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        GameController.GetInstance().OnPlayerDeath();
+    }
+
     protected override void Move()
     {
         var horizontalThrust = Input.GetAxis("Horizontal");

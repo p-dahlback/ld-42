@@ -12,6 +12,8 @@ public abstract class ActorController : MonoBehaviour {
     protected abstract void Move();
     protected abstract void Act();
 
+    public Transform deathPrefab;
+
     public Entity entity;
     public Rigidbody2D body;
     public Animator animator;
@@ -42,6 +44,11 @@ public abstract class ActorController : MonoBehaviour {
     private void LateUpdate()
     {
         UpdateHeading();
+    }
+
+    public virtual void RestoreVelocity()
+    {
+
     }
 
     public void Damage(float value)
@@ -93,6 +100,10 @@ public abstract class ActorController : MonoBehaviour {
 
     protected virtual void OnDeath()
     {
-
+        if (deathPrefab != null)
+        {
+            Instantiate(deathPrefab, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
     }
 }

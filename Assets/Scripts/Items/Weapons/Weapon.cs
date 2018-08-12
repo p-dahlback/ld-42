@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour {
     public Projectile throwable;
     public Collider2D throwableHitBox;
 
+    public string name;
     public float maxAmmo = 100f;
     public float ammo = 100f;
     public int maxBulletsAtATime = 5;
@@ -163,5 +164,7 @@ public class Weapon : MonoBehaviour {
         throwable.enabled = true;
         throwableHitBox.enabled = true;
         throwable.gameObject.layer = (int)Layers.BULLET;
+
+        GameController.GetInstance().OnWeaponLost();
     }
 }

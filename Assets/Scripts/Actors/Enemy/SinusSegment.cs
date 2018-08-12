@@ -26,9 +26,8 @@ public class SinusSegment : ActorController {
 
     protected override void OnDeath()
     {
-        base.OnDeath();
         var sinusController = transform.parent.GetComponent<SinusController>();
         sinusController.OnSegmentDeath(index);
-        Destroy(gameObject);
+        base.OnDeath();
     }
 }
